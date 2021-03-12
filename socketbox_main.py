@@ -98,7 +98,7 @@ while True:
 
                 if i_packet_cmd == 1:
                     conn_slot = socketbox_init.registration_slots[i_packet_slot] # may fail with exception
-                    if (conn_slot.auth_data.uid == event_arg.uid) and (conn_slot.auth_data.socket_nr == event_arg.orig_socket_nr):
+                    if (conn_slot.auth_data.uid == event_arg.uid) and (conn_slot.auth_data.socket_nr == event_arg.orig_socket_nr) and (conn_slot.registered_socket == None):
                         conn_slot.registered_socket = event_arg.socket_file
                         event_arg.has_received_msg = True
                         event_arg.reg_slot = conn_slot
