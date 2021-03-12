@@ -84,7 +84,7 @@ permitted_uids = {}
 for slot in config_json['outgoing']:
     uid_nr = int(slot['uid'])
     registration_slots.append(socketbox_typedefs.SocketboxRegistrationSlot(socketbox_typedefs.SocketboxClientAuthData(uid=uid_nr, socket_nr=int(slot['path_nr']))))
-    permitted_uids[uid_nr] = socketbox_typedefs.SocketboxCounter(5)
+    permitted_uids[uid_nr] = socketbox_typedefs.SocketboxCounter(5) # TODO make this customizable, also account for the presence of multiple API sockets
 
 rules = {}
 rule_list = config_json['rules']
