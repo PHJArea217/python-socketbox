@@ -1,0 +1,47 @@
+{
+	"socketbox-version": 1,
+	"daemon": {
+		"uid": 0,
+		"gid": 0,
+		"chroot": "/run/empty"
+	},
+	"incoming": [
+		{
+			"address": "::",
+			"port": 80
+		},
+		{
+			"address": "::ffff:127.0.0.150",
+			"port": 2,
+			"transparent": true
+		}
+	],
+	"outgoing": [
+		{
+			"uid": 0,
+			"path_nr": 0
+		}
+	],
+	"paths": [
+		{
+			"socket": "/run/socketbox/socketbox-ctl.sock",
+			"mode": "0777",
+			"uid": 0,
+			"gid": 0
+		}
+	],
+	"rules": {
+		"_start": {
+			"type": "rule",
+			"rules": [
+				{ "l_ip": "::1", "l_port": 80, "incoming_socket": 0, "jump": "r:another" }
+			]
+		},
+		"another": {
+			"type": "rule",
+			"rules": [
+				{ "jump": "o:0" }
+			]
+		}
+	}
+}

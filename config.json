@@ -1,0 +1,48 @@
+{
+	"socketbox-version": 1,
+	"daemon": {
+		"uid": 0,
+		"gid": 0
+	},
+	"incoming": [
+		{
+			"address": "::",
+			"port": 80
+		},
+		{
+			"address": "::ffff:127.0.0.150",
+			"port": 2,
+			"transparent": true,
+			"netns": "/run/netns/test_1"
+		}
+	],
+	"final_netns": "/run/netns/test_2",
+	"outgoing": [
+		{
+			"uid": 150000,
+			"path_nr": 0
+		}
+	],
+	"paths": [
+		{
+			"socket": "/run/socketbox/socketbox-ctl.sock",
+			"mode": "0777",
+			"uid": 0,
+			"gid": 0
+		}
+	],
+	"rules": {
+		"_start": {
+			"type": "rule",
+			"rules": [
+				{ "l_ip": "::1", "port": 80, "incoming_socket": 0, "jump": "r:another" }
+			]
+		},
+		"another": {
+			"type": "rule",
+			"rules": [
+				{ "jump": "o:0" }
+			]
+		}
+	}
+}
