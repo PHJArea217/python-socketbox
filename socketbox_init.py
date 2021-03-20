@@ -99,7 +99,7 @@ for rule in rule_list:
     elif t == 'map':
         is_map = True
         if 'mask' in my_data:
-            map_mask = socketbox_typedefs.rule_canon(my_data['mask'])
+            map_mask = socketbox_typedefs.rule_canon(my_data['mask']).mask_b
             my_elem = socketbox_typedefs.SocketboxMap(mask=map_mask, rules={})
         else:
             my_elem = socketbox_typedefs.SocketboxMap(mask=map_mask, rules={})
