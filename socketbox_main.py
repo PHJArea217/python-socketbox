@@ -20,6 +20,10 @@ while True:
                 sock_uid = -1
                 try:
                     api_connection_socket, r_addr = event_arg.sock_object.accept()
+                except BlockingIOError:
+                    break
+
+                try:
                     api_connection_socket.setblocking(False)
                     sock_uid = socketbox_init.socketbox_typedefs.get_sock_uid(api_connection_socket)
                     if not sock_uid in socketbox_init.permitted_uids:
@@ -38,9 +42,12 @@ while True:
                     break
         elif event_type == 1:
             for _unused in range(1, 20):
-                fwd_socket = None
                 try:
                     fwd_socket, r_addrf = event_arg.sock_object.accept()
+                except BlockingIOError:
+                    break
+
+                try:
                     r_addr, r_port, _n1, _n2 = r_addrf
                     l_addr, l_port, _n1, _n2 = fwd_socket.getsockname()
                     rule_s = {"l_ip": l_addr, "l_port": l_port, "r_ip": r_addr, "r_port": r_port, "incoming_socket": event_arg.index}
